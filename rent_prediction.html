@@ -7677,14 +7677,11 @@ max       6.000000  1.200000e+06  8000.000000    10.000000
 <span class="n">max_rent</span> <span class="o">=</span> <span class="mi">1200000</span>
 <span class="n">num_bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">max_rent</span> <span class="o">-</span> <span class="n">min_rent</span><span class="p">)</span> <span class="o">/</span> <span class="n">bin_size</span><span class="p">)</span>
 <span class="n">hist</span><span class="p">,</span> <span class="n">bin_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">rent_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">num_bins</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="n">min_rent</span><span class="p">,</span> <span class="n">max_rent</span><span class="p">))</span>
-<span class="n">intervals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">min_rent</span><span class="p">,</span> <span class="n">max_rent</span> <span class="o">+</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">)</span>
-<span class="n">cdf_values</span><span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
-    <span class="n">cdf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rent_data</span> <span class="o">&lt;=</span> <span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">rent_data</span><span class="p">)</span>
-    <span class="n">cdf_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cdf</span><span class="p">)</span>
 
-<span class="c1">#print(cdf_values)</span>
+
 <span class="n">pdf</span> <span class="o">=</span> <span class="n">hist</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rent_data</span><span class="p">))</span>
+<span class="n">cdf_values</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cdf_values</span><span class="p">)</span>
 </pre></div>
@@ -7704,7 +7701,10 @@ max       6.000000  1.200000e+06  8000.000000    10.000000
  4.21496312e-04 0.00000000e+00 1.05374078e-03 4.21496312e-04
  0.00000000e+00 0.00000000e+00 2.10748156e-04 0.00000000e+00
  2.10748156e-04 0.00000000e+00 0.00000000e+00 2.10748156e-04]
-[0.0, 0.878609062170706, 0.9481559536354057, 0.9738672286617492, 0.9822971548998947, 0.9915700737618546, 0.9951527924130664, 0.9972602739726028, 0.9974710221285564, 0.9978925184404637, 0.9987355110642782, 0.9989462592202318, 0.9993677555321391, 0.9993677555321391, 0.9993677555321391, 0.9995785036880928, 0.9995785036880928, 0.9997892518440463, 0.9997892518440463, 0.9997892518440463, 1.0]
+[0.8691254  0.94436249 0.96986301 0.98208641 0.9890411  0.99494204
+ 0.99726027 0.99747102 0.99789252 0.99789252 0.99894626 0.99936776
+ 0.99936776 0.99936776 0.9995785  0.9995785  0.99978925 0.99978925
+ 0.99978925 1.        ]
 </pre>
 </div>
 </div>
